@@ -39,3 +39,5 @@ crackz.py [-h]
   __-o , --output   Enter output directory for extracted files.__<br>
   __-ex , --extract        Extract files if password is found.__<br>
 
+## License
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
