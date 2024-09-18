@@ -1,7 +1,9 @@
 # Crackz 
-A tool to recover you'r encrypted ZIP files using brute-force and dictionary attack's.
+<img src="https://i.ibb.co/WHN3xHn/crzckz.jpg" alt="Project Logo" width="150px" height="150px">
 
-# Caution
+**_A tool to recover you'r encrypted ZIP files using brute-force and dictionary attack's._**
+
+# Caution :warning:
 * When using a wordlist, it should not exceed __600 passwords__ due to Python limitations. This will be fixed in future updates.
 
 ## Features
@@ -23,7 +25,17 @@ A tool to recover you'r encrypted ZIP files using brute-force and dictionary att
 
 ## Usage
 ### Help:<br>
-crackz.py [-h] -f FILE -w WORDLIST
+crackz.py [-h]
 
-``` python3 crackz.py -f path/zipfile.zip -w path/wordlist.txt ```
+``` python3 crackz.py -h ```
+
+## Crack password! :trollface:
+``` python3 crackz.py -f path/file.zip -w path/wordlist.txt ```
+
+## Execution
+  __-h , --help           show this help message and exit__<br>
+  __-f , --file      Enter zip file path.__<br>
+  __-w , --wordlist  Enter password word list path.__<br>
+  __-o , --output   Enter output directory for extracted files.__<br>
+  __-ex , --extract        Extract files if password is found.__<br>
 
