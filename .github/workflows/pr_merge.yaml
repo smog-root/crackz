@@ -23,4 +23,5 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         REPO: ${{ github.repository }}
         PR_NUMBER: ${{ github.event.pull_request.number }}
-      run: python3 .github/scripts/comment_on_merged_pr.py
+      run: python3 .github/comment_on_merged_pr.py
+      
