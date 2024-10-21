@@ -29,29 +29,31 @@ jobs:
         ERROR_MESSAGE_FILE=$(mktemp)
         SUCCESS_MESSAGE_FILE=$(mktemp)
 
+        # Default value for PR_VALID
+        PR_VALID="true"
+
         # Check if PR description is empty
         if [ -z "$PR_DESCRIPTION" ] || [ "$PR_DESCRIPTION" == "null" ]; then
           echo "Empty PR description"
-          echo 'false' > "$PR_VALID_FILE"
+          PR_VALID="false"
           echo '❌ Error: PR description is empty!' > "$ERROR_MESSAGE_FILE"
-          exit 1
         fi
 
         # Check for issue reference in the description
         ISSUE_PATTERN="(Fixes|Close|Closes|Closed|Fix|Fixed|Resolve|Resolves) #[0-9]+"
         if [[ ! "$PR_DESCRIPTION" =~ $ISSUE_PATTERN ]]; then
           echo "Invalid or missing issue reference"
-          echo 'false' > "$PR_VALID_FILE"
+          PR_VALID="false"
           echo '❌ Error: PR must reference an issue with the format Fixes #Issue_Number' > "$ERROR_MESSAGE_FILE"
-          exit 1
         fi
 
         # If both checks pass
-        echo 'true' > "$PR_VALID_FILE"
-        echo '✅ Success: PR is valid!' > "$SUCCESS_MESSAGE_FILE"
+        if [ "$PR_VALID" == "true" ]; then
+          echo '✅ Success: PR is valid!' > "$SUCCESS_MESSAGE_FILE"
+        fi
 
         # Save the outputs to environment files
-        echo "PR_VALID=$(cat $PR_VALID_FILE)" >> $GITHUB_ENV
+        echo "PR_VALID=$PR_VALID" >> $GITHUB_ENV
         echo "ERROR_MESSAGE=$(cat $ERROR_MESSAGE_FILE)" >> $GITHUB_ENV
         echo "SUCCESS_MESSAGE=$(cat $SUCCESS_MESSAGE_FILE)" >> $GITHUB_ENV
 
@@ -81,3 +83,7 @@ jobs:
               body: successMessage
             });
           }
+
+    - name: Fail if validation failed
+      if: env.PR_VALID == 'false'
+      run: exit 1
