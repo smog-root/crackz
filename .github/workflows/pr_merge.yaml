@@ -9,19 +9,18 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Check if PR is merged
-      if: github.event.pull_request.merged == true
-      run: echo "Pull request #${{ github.event.pull_request.number }} has been merged!"
-
-    - name: Comment on Merged PR
-      if: github.event.pull_request.merged == true
-      uses: actions/github-script@v6
+    - name: Set up Python
+      uses: actions/setup-python@v4
       with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        script: |
-          github.issues.createComment({
-            issue_number: context.payload.pull_request.number,
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            body: "🎉 This PR has been successfully merged. Thank you for your contribution!"
-          })
+        python-version: '3.x'
+
+    - name: Install dependencies
+      run: pip install requests
+
+    - name: Run Python script to comment on merged PR
+      if: github.event.pull_request.merged == true
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        REPO: ${{ github.repository }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: python3 .github/scripts/comment_on_merged_pr.py
