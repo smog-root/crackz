@@ -44,7 +44,7 @@ jobs:
         if [[ ! "$PR_DESCRIPTION" =~ $ISSUE_PATTERN ]]; then
           echo "Invalid or missing issue reference"
           PR_VALID="false"
-          echo '❌ Error: PR must reference an issue with the format Fixes #Issue_Number' > "$ERROR_MESSAGE_FILE"
+          echo '❌ Error: PR must reference an issue with the format Fixes ,Close ,Closes ,Closed ,Fix ,Fixed ,Resolve ,Resolves #Issue_Number' > "$ERROR_MESSAGE_FILE"
         fi
 
         # If both checks pass
