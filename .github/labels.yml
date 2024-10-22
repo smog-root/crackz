@@ -1,0 +1,8 @@
+gssoc-ext:
+  - '^gssoc-ext'
+hacktoberfest:
+  - '^hacktoberfest'
+hacktoberfest-accepted:
+  - '^hacktoberfest-accepted'
+level:
+  - '^level'
