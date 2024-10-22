@@ -5,4 +5,4 @@ hacktoberfest:
 hacktoberfest-accepted:
   - '^hacktoberfest-accepted'
 level:
-  - '^level'
+  - '^level?'
